@@ -1,59 +1,28 @@
 # Socket.io Sample Application
 
-
 ![](assets/sockets.gif)
 
-High points:
-
-- Installing with a non-trivial express app
-- Emitting events from a route
-- Emitting events to
-  - Just a current socket
-  - Everyone
-  - Everyone but the current socket
-  - Everyone in a room
-  - Everyone in a room but the current socket
-
-Step 1:
+## Step 1: Get the app up and running
 
 ```
-npm install --save socket.io
+npm install
+nodemon
 ```
 
-Step 2:
+Open http://localhost:3000/ in 3 or 4 different windows, then click through the app and see how it works.
 
-Attach the socket in `bin/www`
+In particular, look into:
 
-```
-var listener = server.listen(port);
-var io = require('socket.io')(listener);
+- `public/javascripts/app.js`
+- `lib/io.js`
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-});
-```
+## Step 2: Add custom messages
 
-Step 3:
+Right now there are hardcoded messages being sent from Angular.  Add a text boxes and alter both the client-side and server-side code to use these user-defined messages.
 
-Make a connection
+## Step 3 (optional): Store messages in a db
 
-```
-script(src="/socket.io/socket.io.js")
-script.
-  var socket = io();
-```
+Store each message, along with the associated room, in a database, and display those messages on page load.
 
-Authentication:
-
-https://auth0.com/blog/2014/01/15/auth-with-socket-io/ (old but good)
-https://facundoolano.wordpress.com/2014/10/11/better-authentication-for-socket-io-no-query-strings/ - complex
-https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications - mdn
-
-
-
-
-http://psitsmike.com/2011/10/node-js-and-socket-io-multiroom-chat-tutorial/
-
-http://www.tamas.io/advanced-chat-using-node-js-and-socket-io-episode-1/
-
-http://stackoverflow.com/questions/19156636/node-js-and-socket-io-creating-room
+- Would you send them all down via sockets or AJAX?
+- How would you deal with the fact that there might be a gap between page load and when the sockets connect?

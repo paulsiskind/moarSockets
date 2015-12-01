@@ -32,19 +32,19 @@ angular.module('socketDemo', ['ngRoute'])
     $scope.self = function () {
       // this sends a message to the server
       // with the name of "self"
-      socket.emit('self', { message: 'From Home Page' });
+      socket.emit('self', 'replaceme');
     }
 
     $scope.all = function () {
       // this sends a message to the server
       // with the name of "all"
-      socket.emit('all', { message: 'From Home Page' });
+      socket.emit('all', 'replaceme');
     }
 
     $scope.broadcast = function () {
       // this sends a message to the server
       // with the name of "broadcast"
-      socket.emit('broadcast', { message: 'From Home Page' });
+      socket.emit('broadcast', 'replaceme');
     }
 
     // The $destroy event is triggered when the controller is about to go away
@@ -77,11 +77,11 @@ angular.module('socketDemo', ['ngRoute'])
     })
 
     $scope.sendMessage = function () {
-      socket.emit('message', { message: $scope.message });
+      socket.emit('message', 'replaceme');
     }
 
     $scope.broadcastRoom = function () {
-      socket.emit('broadcastRoom', { message: $scope.message });
+      socket.emit('broadcastRoom', 'replaceme');
     }
 
     $scope.$on('$destroy', function (event) {
