@@ -33,21 +33,21 @@ angular.module('socketDemo', ['ngRoute'])
     $scope.self = function () {
       // this sends a message to the server
       // with the name of "self"
-      $scope.tacoMessages = $scope.form
+      $scope.tacoMessages = $scope.form.message
       console.log($scope.tacoMessages)
 
       socket.emit('self', $scope.tacoMessages);
     }
 
     $scope.all = function () {
-      $scope.tacoMessages = $scope.form
+      $scope.tacoMessages = $scope.form.message
       // this sends a message to the server
       // with the name of "all"
       socket.emit('all', $scope.tacoMessages);
     }
 
     $scope.broadcast = function () {
-      $scope.tacoMessages = $scope.form
+      $scope.tacoMessages = $scope.form.message
       // this sends a message to the server
       // with the name of "broadcast"
       socket.emit('broadcast', $scope.tacoMessages);
@@ -64,7 +64,7 @@ angular.module('socketDemo', ['ngRoute'])
     });
 
   })
-  .controller('ShowsController', function ($scope, $routeParams) {
+  .controller('ShowsController', function($scope, $routeParams, $http) {
 
     $scope.show = $routeParams.show;
     var socket = io();
@@ -82,18 +82,24 @@ angular.module('socketDemo', ['ngRoute'])
       $scope.$apply();
     })
 
+      $http.get('/messages').then(function (response) {
+        console.log(response)
+      $scope.stories = response.data
+
+  })
     $scope.sendMessage = function () {
-      $scope.showMessage = $scope.form
+      $scope.showMessage = $scope.form.message
       socket.emit('message', $scope.showMessage);
     }
 
     $scope.broadcastRoom = function () {
-      $scope.showMessage = $scope.form
+      $scope.showMessage = $scope.form.message
       socket.emit('broadcastRoom', $scope.showMessage);
     }
 
     $scope.$on('$destroy', function (event) {
       socket.removeAllListeners();
     });
+    });
 
-  })
+

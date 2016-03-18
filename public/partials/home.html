@@ -1,6 +1,6 @@
 <h1>Home</h1>
 <form>
-    <input type='text' class='form-control' placeholder='Say Something' ng-model='form'>
+    <input type='text' class='form-control' placeholder='Say Something' ng-model='form.message'>
     <br>
     <p>
       <button class="btn btn-primary" ng-click="self()">socket.emit</button>
@@ -14,7 +14,8 @@
       <button class="btn btn-primary" ng-click="broadcast()">socket.broadcast.emit</button>
     </p>
 
+</form>
     <div ng-repeat="message in messages track by $index">
       {{message}}
     </div>
-</form>
+

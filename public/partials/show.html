@@ -1,7 +1,9 @@
 <h1>Show: {{show}}</h1>
 
-<form>
-    <input type='text' class='form-control' placeholder='Say Something' ng-model='form'>
+<form method="post" action="/addMessage" >
+    <input type='text' class='form-control' placeholder="Name" ng-model="form.user" name="user">
+    <input type='text' class='form-control' placeholder='Say Something' ng-model='form.message' name="message">
+    <input type='hidden' value='{{show}}' name='room'>
     <br>
 
     <p>
@@ -16,3 +18,13 @@
       {{message}}
     </div>
 </form>
+
+<div class="well">
+    <h1>Database Messages</h1>
+    <div ng-repeat="story in stories">
+    <ul>
+
+      <li>User:{{story.user}} Message:{{story.message}} Room:{{story.room}} </li>
+    </ul>
+    </div>
+</div>
