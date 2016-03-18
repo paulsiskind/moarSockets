@@ -18,6 +18,7 @@ angular.module('socketDemo', ['ngRoute'])
     // io is a global object given to you by /socket.io/socket.io.js
     var socket = io();
     $scope.messages = [];
+    $scope.tacoMessages = [];
 
     // when the _server_ sends a message
     // we'll add that message to our $scope.messages array
@@ -32,13 +33,17 @@ angular.module('socketDemo', ['ngRoute'])
     $scope.self = function () {
       // this sends a message to the server
       // with the name of "self"
-      socket.emit('self', 'replaceme');
+      console.log($scope.form)
+      $scope.tacoMessages.push($scope.form)
+
+      socket.emit('self', $scope.tacoMessages);
     }
 
     $scope.all = function () {
+      $scope.tacoMessages.push("{"+$scope.form+"}")
       // this sends a message to the server
       // with the name of "all"
-      socket.emit('all', 'replaceme');
+      socket.emit('all', $scope.tacoMessages);
     }
 
     $scope.broadcast = function () {
