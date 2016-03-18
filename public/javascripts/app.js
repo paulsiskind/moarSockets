@@ -33,23 +33,24 @@ angular.module('socketDemo', ['ngRoute'])
     $scope.self = function () {
       // this sends a message to the server
       // with the name of "self"
-      console.log($scope.form)
-      $scope.tacoMessages.push($scope.form)
+      $scope.tacoMessages = $scope.form
+      console.log($scope.tacoMessages)
 
       socket.emit('self', $scope.tacoMessages);
     }
 
     $scope.all = function () {
-      $scope.tacoMessages.push("{"+$scope.form+"}")
+      $scope.tacoMessages = $scope.form
       // this sends a message to the server
       // with the name of "all"
       socket.emit('all', $scope.tacoMessages);
     }
 
     $scope.broadcast = function () {
+      $scope.tacoMessages = $scope.form
       // this sends a message to the server
       // with the name of "broadcast"
-      socket.emit('broadcast', 'replaceme');
+      socket.emit('broadcast', $scope.tacoMessages);
     }
 
     // The $destroy event is triggered when the controller is about to go away
@@ -74,7 +75,7 @@ angular.module('socketDemo', ['ngRoute'])
 
     // The server will then tell this client to join the room specified here.
     socket.emit('join', { showName: $routeParams.show });
-
+    $scope.showMessage = []
     $scope.messages = [];
     socket.on('message', function (data) {
       $scope.messages.push(data);
@@ -82,11 +83,13 @@ angular.module('socketDemo', ['ngRoute'])
     })
 
     $scope.sendMessage = function () {
-      socket.emit('message', 'replaceme');
+      $scope.showMessage = $scope.form
+      socket.emit('message', $scope.showMessage);
     }
 
     $scope.broadcastRoom = function () {
-      socket.emit('broadcastRoom', 'replaceme');
+      $scope.showMessage = $scope.form
+      socket.emit('broadcastRoom', $scope.showMessage);
     }
 
     $scope.$on('$destroy', function (event) {
